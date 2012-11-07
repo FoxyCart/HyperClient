@@ -1,7 +1,9 @@
 HyperClient
 ===========
 
-A simple CURL based REST client with local cache support.
+A simple CURL based REST client for PHP with local cache support.
+
+UPDATE: Just learned there is a [ruby client](https://github.com/codegram/hyperclient) of the same name. I need to come up with something different. Any ideas?
 
 For this client to work, your API must use [Web Linking](http://tools.ietf.org/html/rfc5988) headers. It comes with an example against the FoxyCart Hypermedia API sandbox. For more information on the API shown here, see the [FoxyCart documentation](http://wiki.foxycart.com/v/0.0.0/hypermedia_api). 
 
@@ -9,7 +11,7 @@ We'd love to know what you think about it. Feel free to ping [Luke Stokes](https
 
 ##Install
 
-The client requires some form of caching mechanism to store responses with etags. It currently includes a basic APC example as well as a file based example. To use the file based cache, you must have a private folder (not readable by the web or others on your server) that you can write to and read from. See the comments for more information. 
+Along with PHP and curl, the client requires a caching mechanism to store responses with ETags. It currently includes a basic APC example as well as a file based example. To use the file based cache, you must have a private folder (not readable by the web or others on your server) that you can write to and read from. See the comments for more information. 
 
 ## Files
 
