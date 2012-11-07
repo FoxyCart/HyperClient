@@ -217,6 +217,7 @@ class HyperClient
                 // if we don't have a cached_response, we assume the app is doing it's own 304 handling.
                 $this->last_response['header'] = $cached_response->header;
                 $this->last_response['body'] = $cached_response->body;
+                $this->last_response['content_type'] = $cached_response->content_type;
             }
         }
 
@@ -412,7 +413,7 @@ class HyperClient
      */
     function getCacheKeyForLastRequest()
     {
-        return md5($this->last_request['uri'] . ':' . serialize($this->last_request['headers']));
+        return 'HC_' . md5($this->last_request['uri'] . ':' . serialize($this->last_request['headers']));
     }
 
     /**
@@ -425,6 +426,7 @@ class HyperClient
         $entry->etag = $etag;
         $entry->body = $this->last_response['body'];
         $entry->header = $this->last_response['header'];
+        $entry->content_type = $this->last_response['content_type'];
         $this->cache->store($this->getCacheKeyForLastRequest(), $entry);
     }
 
@@ -534,4 +536,5 @@ class CacheEntry
     public $etag = '';
     public $header = '';
     public $body = '';
+    public $content_type = '';
 }
