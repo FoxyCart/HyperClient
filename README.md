@@ -55,4 +55,4 @@ print '<pre>' . htmlspecialchars(print_r($resp,true)) . '</pre>';
 
 ## Props
 
-This was heavily inspired and influenced by Ed Finkle's [Resty library](https://github.com/fictivekin/resty.php). If you enjoy it, please [give him a shout out](https://twitter.com/funkatron).
+This was heavily inspired and influenced by Ed Finkler's [Resty library](https://github.com/fictivekin/resty.php). If you enjoy it, please [give him a shout out](https://twitter.com/funkatron).
