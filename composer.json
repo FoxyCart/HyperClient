@@ -1,0 +1,21 @@
+{
+    "name": "foxycart/hyperclient",
+    "homepage": "https://github.com/FoxyCart/HyperClient",
+    "description":"A simple CURL based REST client for PHP with local cache support.",
+    "keywords":["hypermedia","REST","PHP","client","cache"],
+    "type":"library",
+    "authors":[
+        {
+            "name":"Luke Stokes",
+            "homepage":"http://bestoked.blogspot.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "HyperClient": "src/"
+        }
+    }
+}
