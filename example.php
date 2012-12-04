@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/HyperClient.php';
+// Composer based autoloading (see: http://getcomposer.org/doc/04-schema.md#autoload)
+require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/ExampleDisplay.php';
 
 /*************** CONFIGURATION *******************/
@@ -29,7 +30,7 @@ $writeable_cache_directory = __DIR__ . '/cache'; // CHANGE ME!
  * The type of caching system you'll be using.
  * @var string valid entries currently include "File" and "APC" (case sensitive!)
  */
-$cache_type = 'File';
+$cache_type = 'APC';
 
 /**
  * List your API's supported media types here
@@ -41,8 +42,8 @@ $supported_media_types = array('hal','vnd.siren');
 
 // setup caching
 $cache = null;
-$cache_class = 'Cache' . $cache_type;
-if (class_exists($cache_class, false)) {
+$cache_class = 'HyperClient\\cache\\' . $cache_type;
+if (class_exists($cache_class)) {
     if ($cache_type == 'File') {
         $cache = new $cache_class($writeable_cache_directory);
     } else {
@@ -53,7 +54,7 @@ if (class_exists($cache_class, false)) {
 }
 
 // setup client
-$client = new HyperClient($cache,$rel_base_uri);
+$client = new HyperClient\Client($cache,$rel_base_uri);
 
 // setup display
 $display = new ExampleDisplay();
