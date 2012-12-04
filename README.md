@@ -3,7 +3,7 @@ HyperClient
 
 A simple CURL based REST client for PHP with local cache support.
 
-UPDATE: Just learned there is a [ruby client](https://github.com/codegram/hyperclient) of the same name. I need to come up with something different. Any ideas?
+There's also a [Ruby client](https://github.com/codegram/hyperclient) of the same name so please head over there if you're using Ruby.
 
 For this client to work, your API must use [Web Linking](http://tools.ietf.org/html/rfc5988) headers. It comes with an example against the FoxyCart Hypermedia API sandbox. For more information on the API shown here, see the [FoxyCart documentation](http://wiki.foxycart.com/v/0.0.0/hypermedia_api). 
 
