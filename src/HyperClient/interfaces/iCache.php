@@ -15,7 +15,7 @@ interface iCache
      * @param string $key
      */
     public function exists($key);
-    
+
     /**
      * Fetch a value for this key. The value will be unserialized() before returning it.
      * similar to apc_fetch
@@ -23,7 +23,7 @@ interface iCache
      * @return mixed
      */
     public function fetch($key);
-    
+
     /**
      * Store a value for this key. The value will be seralized() before storing it.
      * similar to apc_store

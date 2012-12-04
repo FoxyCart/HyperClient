@@ -7,7 +7,7 @@ namespace HyperClient;
  * If your API outputs link headers and either a json or xml format for the body
  * (custom or otherwise), this client should be able to make basic HTTP calls to it and parse the response
  * for you. It also requires some form of local cache mechanism to take advantage of HTTP 304 Not Modified.
- * 
+ *
  * @link https://github.com/FoxyCart
  * @author Luke Stokes
  */
@@ -28,7 +28,7 @@ class Client
      * @var array
      */
     public $last_request = array();
-    
+
     /**
      * This array holds the details of the last response including:
      *     body
@@ -49,7 +49,7 @@ class Client
      * @var array
      */
     public $registered_link_relations = array('self','first','prev','next','last');
-    
+
     /**
      * This is the base uri of our non-registered link relations. Example: https://api.foxycart.com/rels/
      * @var string
@@ -65,7 +65,7 @@ class Client
      * @var iCache
      */
     private $cache;
-    
+
     /**
      * If your client and server natively support HTTP PATCH, you can set this to true.
      * @var boolean
@@ -88,7 +88,7 @@ class Client
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     }
-    
+
     /**
      * Clean up after yourself
      */
@@ -96,7 +96,7 @@ class Client
     {
         curl_close($this->ch);
     }
-    
+
     /**
      * send a POST request
      * @param string $uri
@@ -151,7 +151,7 @@ class Client
         }
         return $this->post($uri,$fields,$headers);
     }
-    
+
     /**
      * This is the core processor for the various HTTP methods.
      * @param string $method
@@ -172,7 +172,7 @@ class Client
         if (is_array($fields)) {
             $fields = http_build_query($fields);
         }
-        
+
         if ($method == 'GET') {
             if ($fields && $fields != '') {
                 if(strpos($request_uri, '?') !== false) {
@@ -210,7 +210,7 @@ class Client
 
         $this->last_response['header'] = '';
         $this->last_response['body'] = '';
-        
+
         if ($response) {
             list($this->last_response['header'], $this->last_response['body']) = explode("\r\n\r\n", $response, 2);
             if (preg_match('/(Content-Type: )(.*$)/m',$this->last_response['header'],$matches)) {
@@ -245,8 +245,8 @@ class Client
      * Note, $value may also be an array (such as with multiple link headers).
      * Stolen from Resty's metaToHeaders method
      * @link https://github.com/fictivekin/resty.php
-	 * @author Ed Finkler
-	 * @returns array
+     * @author Ed Finkler
+     * @returns array
      */
     function getHeadersArray()
     {
@@ -272,39 +272,39 @@ class Client
         return $headers;
     }
 
-	/**
-	 * Inspired by Ed Finkler's Resty and buildHeadersArray
-	 * 
-	 * Takes an array of either key/val pairs or raw header strings and builds an array of raw header strings
-	 *
-	 * @param array $headers
-	 * @return array
-	 * @author Ed Finkler
-	 */
+    /**
+     * Inspired by Ed Finkler's Resty and buildHeadersArray
+     *
+     * Takes an array of either key/val pairs or raw header strings and builds an array of raw header strings
+     *
+     * @param array $headers
+     * @return array
+     * @author Ed Finkler
+     */
     protected function getHeadersArrayForTransport($headers) {
-		$headers_for_transport = array();
-		if (!is_null($headers)) {
-    		foreach ($headers as $key => $value) {
-    		    if (is_numeric($key)) {
-    		        $headers_for_transport[] = $value;
-    		    } else {
-    			    $headers_for_transport[] = "{$key}: {$value}";
-    		    }
-    		}
-		}
-		return $headers_for_transport;
-	}
-    
-	/**
-	 * Get the href of a link header via the short rel code (example: for https://api.foxycart.com/rels/store, pass in store)
-	 * @param string $rel
-	 */
+        $headers_for_transport = array();
+        if (!is_null($headers)) {
+            foreach ($headers as $key => $value) {
+                if (is_numeric($key)) {
+                    $headers_for_transport[] = $value;
+                } else {
+                    $headers_for_transport[] = "{$key}: {$value}";
+                }
+            }
+        }
+        return $headers_for_transport;
+    }
+
+    /**
+     * Get the href of a link header via the short rel code (example: for https://api.foxycart.com/rels/store, pass in store)
+     * @param string $rel
+     */
     public function getLink($rel)
     {
         $linkObj = $this->getLinkObj($rel);
         return $linkObj->href;
     }
-    
+
     /**
      * Get the type of a link header via the short rel code (example: for https://api.foxycart.com/rels/store, pass in store)
      * @param string $rel
@@ -314,7 +314,7 @@ class Client
         $linkObj = $this->getLinkObj($rel);
         return $linkObj->type;
     }
-    
+
     /**
      * Get a stdClass with an href and type property obtained via the $rel shortcode
      * Always wrap this in a try/catch as it will throw an exception if the link is not found.
@@ -347,7 +347,7 @@ class Client
         }
         return $linkObj;
     }
-    
+
     /**
      * Shortcut to return the location header.
      * Always wrap this in a try/catch as it will throw an exception if the location is not found.
@@ -366,9 +366,9 @@ class Client
             throw new \Exception('Location header not found.');
         }
         return $location_href;
-        
+
     }
-    
+
     /**
      * Simple method for determining if the response content type has "xml" in the name
      * @return boolean
@@ -377,7 +377,7 @@ class Client
     {
         return (strpos($this->last_response['content_type'],'xml') !== false);
     }
-    
+
     /**
      * Simple method for determining if the response content type has "json" in the name
      * @return boolean

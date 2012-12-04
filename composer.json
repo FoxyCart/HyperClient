@@ -4,10 +4,11 @@
     "description":"A simple CURL based REST client for PHP with local cache support.",
     "keywords":["hypermedia","REST","PHP","client","cache"],
     "type":"library",
+    "license":"MIT",
     "authors":[
         {
             "name":"Luke Stokes",
-            "homepage":"http://bestoked.blogspot.com/"
+            "homepage":"http://www.foxycart.com/"
         }
     ],
     "require": {
