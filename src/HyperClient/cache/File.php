@@ -22,7 +22,7 @@ class File implements \HyperClient\interfaces\iCache
         if (is_writable($cache_directory)) {
             $this->cache_directory = $cache_directory;
         } else {
-            throw new Exception('CacheFile Exception: ' . $cache_directory . ' is not writeable.');
+            throw new \Exception('CacheFile Exception: ' . $cache_directory . ' is not writeable.');
         }
     }
 

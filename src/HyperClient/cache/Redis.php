@@ -15,7 +15,7 @@ class Redis implements \HyperClient\interfaces\iCache
             throw new Exception("CacheRedis needs the phpredis extension. Check your php.ini");
         }
 
-        $this->redis = new Redis();
+        $this->redis = new \Redis();
         $this->redis->connect($redis_server, $redis_port);
         $this->redis->select($db);
     }
