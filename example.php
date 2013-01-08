@@ -28,7 +28,7 @@ $writeable_cache_directory = __DIR__ . '/cache'; // CHANGE ME!
 
 /**
  * The type of caching system you'll be using.
- * @var string valid entries currently include "File" and "APC" (case sensitive!)
+ * @var string valid entries currently include "File", "APC", or "Redis" (case sensitive!)
  */
 $cache_type = 'APC';
 
@@ -77,15 +77,15 @@ $tokens = array();
 $resp = $client->get($api_home_page,null,$display->getHeaders());
 $display->displayResult('Home Page',$client);
 $useful_links['create_client'] = $client->getLink('create_client');
-$useful_links['resources'] = $client->getLink('resources');
+$useful_links['property_helpers'] = $client->getLink('property_helpers');
 $useful_links['rels'] = $client->getLink('rels');
 
-$resp = $client->get($useful_links['resources'],null,$display->getHeaders());
-$display->displayResult('Resources',$client);
+$resp = $client->get($useful_links['property_helpers'],null,$display->getHeaders());
+$display->displayResult('Property Helpers',$client);
 $useful_links['regions'] = $client->getLink('regions');
 
 $resp = $client->get($useful_links['regions'],'country_code=CA',$display->getHeaders());
-$display->displayResult('Resources: Regions',$client);
+$display->displayResult('Property Helpers: Regions',$client);
 
 $resp = $client->get($useful_links['rels'],null,$display->getHeaders());
 $display->displayResult('Link Relations',$client);
