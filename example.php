@@ -78,6 +78,7 @@ $resp = $client->get($api_home_page,null,$display->getHeaders());
 $display->displayResult('Home Page',$client);
 $useful_links['create_client'] = $client->getLink('create_client');
 $useful_links['property_helpers'] = $client->getLink('property_helpers');
+$useful_links['token'] = $client->getLink('token');
 $useful_links['rels'] = $client->getLink('rels');
 
 $resp = $client->get($useful_links['property_helpers'],null,$display->getHeaders());
@@ -108,7 +109,8 @@ $data = array(
 $data = $display->formatRequestData($data);
 $resp = $client->post($useful_links['create_client'],$data,$display->getHeaders());
 $display->displayResult('Create Client',$client);
-// in a real application, you'd save this whole token in your system somewhere
+// In a real application, you'd save this whole token in your system somewhere so we could use the refresh token later.
+// For our demo, just grab the access_token.
 $tokens['client'] = $display->getToken($resp);
 
 $resp = $client->get($api_home_page,null,$display->getHeaders($tokens['client']));
@@ -117,6 +119,7 @@ $useful_links['client'] = $client->getLink('client');
 $useful_links['create_user'] = $client->getLink('create_user');
 
 $resp = $client->get($useful_links['client'],null,$display->getHeaders($tokens['client']));
+$oauth_client_data = $resp['data'];
 $display->displayResult('Client',$client);
 
 $resp = $client->post($useful_links['create_user'],null,$display->getHeaders($tokens['client']));
@@ -130,7 +133,8 @@ $data = array(
 $data = $display->formatRequestData($data);
 $resp = $client->post($useful_links['create_user'],$data,$display->getHeaders($tokens['client']));
 $display->displayResult('Create User',$client);
-// in a real application, you'd save this whole token in your system somewhere
+// In a real application, you'd save this whole token in your system somewhere so we could use the refresh token later.
+// For our demo, just grab the access_token.
 $tokens['user'] = $display->getToken($resp);
 $useful_links['user'] = $client->getLocation();
 
@@ -166,11 +170,26 @@ $data = array(
 $data = $display->formatRequestData($data);
 $resp = $client->post($useful_links['stores'],$data,$display->getHeaders($tokens['user']));
 $display->displayResult('Create Store',$client);
+// In a real application, you'd save this whole token in your system somewhere so we could use the refresh token later.
+// For our demo, just grab the access_token.
 $tokens['store'] = $display->getToken($resp);
+$store_refresh_token = $display->getRefreshToken($resp);
 $useful_links['store'] = $client->getLocation();
 
 $resp = $client->get($useful_links['store'],null,$display->getHeaders($tokens['store']));
 $display->displayResult('Store',$client);
+
+// here's an example of obtaining a new token via the refresh token
+$data = array(
+        'grant_type' => 'refresh_token',
+        'refresh_token' => $store_refresh_token,
+        'client_id' => $oauth_client_data->client_id,
+        'client_secret' => $oauth_client_data->client_secret
+);
+$display->formatRequestData($data);
+$resp = $client->post($useful_links['token'],$data);
+$display->displayResult('Example OAuth Refresh Token Usage',$client);
+$tokens['store'] = $resp['data']->access_token;
 
 $resp = $client->post($useful_links['user_attributes'],null,$display->getHeaders($tokens['user']));
 $display->displayResult('Create User Attribute, no data sent (ERROR)',$client);

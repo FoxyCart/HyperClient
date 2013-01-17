@@ -203,4 +203,15 @@ HEADERS: {{ request_headers }}<br />
         }
     }
     
+    function getRefreshToken($resp)
+    {
+        if ($this->media_type == 'hal') {
+            return $tokens['client'] = $resp['data']->token->refresh_token;
+        }
+        if ($this->media_type == 'vnd.siren') {
+            return $tokens['client'] = $resp['data']->properties->token->refresh_token;
+        }
+    }
+    
+    
 }
