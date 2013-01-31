@@ -1,11 +1,8 @@
 HyperClient
 ===========
 
-Please note:
-============
-As of 2013-01-30 We (FoxyCart) will no longer be using or maintaining this library.
------------------------------------------------------------------------------------
-[GuzzlePHP](http://guzzlephp.org/) seems to fit our needs rather well so we don't feel this package is adding anything especially new to the dev community. If you're looking for an example of how to work with the FoxyCart API, everything here will continue to work as before. We'll also be creating new examples in the future using GuzzlePHP. If you have any questions, please feel free to contact us.
+##Please note:
+As of 2013-01-30 We (FoxyCart) will no longer be using or maintaining this library. [GuzzlePHP](http://guzzlephp.org/) seems to fit our needs rather well so we don't feel this package is adding anything especially new to the dev community. If you're looking for an example of how to work with the FoxyCart API, everything here will continue to work as before. We'll also be creating new examples in the future using GuzzlePHP. If you have any questions, please feel free to contact us.
 
 ##HyperClient Is
 
